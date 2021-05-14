@@ -39,13 +39,28 @@ body
     color: antiquewhite;
 
 }
+.btns:hover
+{
+    box-shadow: 1px 1px 1px 1px  rgb(116, 112, 114);;
+}
+.btns:active
+{
+    background-color:  rgb(22, 20, 21);;
+}
 .ssign
 {
     margin-left: 2em;
     background-color: rgb(27, 140, 155);
 }
-
+.ssign:active
+{
+    background-color: rgb(9, 84, 94);
+}
 #eqlbtn
 {
     background-color: rgb(51, 167, 15);
+}
+#eqlbtn:active
+{
+    background-color: rgb(26, 73, 11);
 }
