@@ -1,3 +1,7 @@
+document.getElementById("cancelbtn").addEventListener("click", del);
+function del() {
+  document.getElementById("text").innerHTML = "";
+}
 var bts = document.getElementsByTagName("button");
 bts[0].addEventListener("click", function () {
   btnclk(7);
@@ -84,7 +88,7 @@ function check(i) {
   var a = document.querySelector("#text").innerHTML;
   var str = a.toString();
   var last = str.charAt(str.length - 1);
- 
+
   if (
     last == "+" ||
     last == "-" ||
@@ -95,11 +99,9 @@ function check(i) {
   ) {
     alert("Invalid ! Cannot enter " + i + " after " + last);
     return false;
-  } 
-  if(str.charAt(0)=='')
-  {
+  }
+  if (str.charAt(0) == "") {
     alert("Invalid ! Cannot enter " + i + " at start ");
     return false;
-  }
-  else return true;
+  } else return true;
 }
