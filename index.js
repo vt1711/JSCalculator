@@ -1,4 +1,4 @@
-var n = [], s, str, last;
+var n = [], s, str, last ,regx1 = /[-|/|+|*]/;
 
 //for manupulating calc display
 var txt = document.querySelector("#text");
@@ -70,24 +70,29 @@ function btnclk(i) {
     case 1:
     case 2:
     case 3:
-      //checkb(i); not required as its function performed during = enter
       textdisp(i);
+      //checkb(i); not required as its function is performed during = enter
+      break;
+    case ".":
+      if (checkdot(i)) {
+        textdisp(i);
+      }
       break;
 
     case 0:
-      if (s = '/') {
-        alert("Invalid Operation !\nCannot divide by 0 ");
-      }
-      else {
-        textdisp(i);
-      }
+      // if (s == '/') {
+      //   alert("Invalid Operation !\nCannot divide by 0 ");
+      // }
+      // else {
+      //   textdisp(i);
+      // }               // not required as this functionality is performed during = enter
+      textdisp(i);
       break;
 
     case "+":
     case "/":
     case "-":
     case "*":
-    case ".":
       if (checko(i)) {
         insarr1(i);
         textdisp(i);
@@ -107,7 +112,7 @@ function btnclk(i) {
 function del() {
   txt.innerHTML = "";
   txt.style.color = 'blanchedalmond';
-  n[0]=""; n[1]="" ; s=""; //required.
+  n[0] = ""; n[1] = ""; s = ""; str = ""; str3=""; //required.clears all global arrays
 }
 
 //function to display entered content on dispscreen 
@@ -115,7 +120,7 @@ function del() {
 //appends input to current innerhtml n displays it
 function textdisp(i) {
 
-  if (txt.style.color == 'rgb(8, 236, 46)') //clears display if it has last result displayd .
+  if (txt.style.color == 'rgb(8, 236, 46)') //clears arrays n dispscreen if it has last result displayd .
   { del(); }
   var num1 = i.toString();
   var num2 = txt.innerHTML.toString();
@@ -124,15 +129,20 @@ function textdisp(i) {
   return;
 
 }
+function checkdot(i) {
+   return true;
 
+}
 //function to check conditions before entering operator to innerhtml n array
 //Returns false if innerhtml  already  contains operator or operator entered at last or
 //operator is entered at 1st ,else return true
 function checko(i) {
 
   str = txt.innerHTML.toString();
-  var regx1 = /[-|/|+|*]/;
+ 
 
+  if (txt.style.color == 'rgb(8, 236, 46)') //clears arrays n display if it has last result displayd .
+  { del(); }
   if (str.charAt(0) == "") {
     alert("Invalid Expresssion !  \nCannot enter " + i + " at start ");
     return false;
@@ -145,11 +155,28 @@ function checko(i) {
 }
 
 //function to check conditions before entering equals operator
-//Returns false if last entered value is an operator else return true.
+//Returns false if last entered value is an operator or . and if /by0 error is found else return true.
 function checke(i) {
-
+  var regx2 = /[/]/, num;
+  var str2 = [];
   str = txt.innerHTML.toString();
+  str3 = str2.toString();
   last = str.charAt(str.length - 1);
+
+  //serches for / in str when found , collects string frm next index till last index
+  //parses this new string to num n checks if its 0 , if yes returns false.(/by0 error check)
+  for (var i = 0; i < str.length; i++) {
+    if (regx2.test(str[i])) {
+      while (i < str.length - 1) {
+        str3 = str3.concat(str[++i]);
+      }
+      num = parseFloat(str3).toFixed(4);
+      if (num == 0.0000) {
+        alert("Invalid Expression !\nCannot divide by 0");
+        return false;
+      }
+    }
+  }
   if (
     last == "+" ||
     last == "-" ||
@@ -169,7 +196,7 @@ function checke(i) {
 //function to insert 1st operand to array and operator to s
 function insarr1(i) {
 
-  n[0] = parseInt(txt.innerHTML);
+  n[0] = parseFloat(txt.innerHTML).toFixed(4);
   s = i;
   return;
 }
@@ -198,16 +225,15 @@ function insarr1(i) {
 //enters whole string between that operator and end of string to array 
 //and then stores this string as an int in array n. 
 function insarr2() {
-  var regx2 = /[-|/|+|*]/;
   var str2 = [];
   str = txt.innerHTML.toString();
   str3 = str2.toString();
   for (var i = 0; i < str.length; i++) {
-    if (regx2.test(str[i])) {
+    if (regx1.test(str[i])) {
       while (i < str.length - 1) {
         str3 = str3.concat(str[++i]);
       }
-      n[1] = parseInt(str3);
+      n[1] = parseFloat(str3).toFixed(4);
       return;
     }
   }
@@ -220,19 +246,22 @@ function dispresult() {
   switch (s) {
     case '+':
       result = n[0] + n[1];
-      txt.innerHTML = n[0] + "+" + n[1] + "=" + result;
+      txt.innerHTML = n[0] + "+" + n[1] + "=" + result.toFixed(4);
       break;
     case '-':
       result = n[0] - n[1];
-      txt.innerHTML = n[0] + "-" + n[1] + "=" + result;
+      txt.innerHTML = n[0] + "-" + n[1] + "=" + result.toFixed(4);
       break;
     case '/':
       result = n[0] / n[1];
-      txt.innerHTML = n[0] + "/" + n[1] + "=" + result;
+      txt.innerHTML = n[0] + "/" + n[1] + "=" + result.toFixed(4);
       break;
     case '*':
       result = n[0] * n[1];
-      txt.innerHTML = n[0] + "*" + n[1] + "=" + result;
+      txt.innerHTML = n[0] + "*" + n[1] + "=" + result.toFixed(4);
       break;
   }
 }
+
+///ignore ..test command////
+// document.getElementById("cancelbtn").style.backgroundColor='red';
