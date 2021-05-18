@@ -1,4 +1,4 @@
-var n = [], s, str, last ,regx1 = /[-|/|+|*]/;
+var n = ["", ""], s, str, last, regx1 = /[-|/|+|*]/;
 
 //for manupulating calc display
 var txt = document.querySelector("#text");
@@ -58,8 +58,8 @@ bts[15].addEventListener("click", function () {
 });
 
 //function for calc button clicks
-function btnclk(i) {
-  switch (i) {
+function btnclk(v) {
+  switch (v) {
 
     case 7:
     case 8:
@@ -70,37 +70,29 @@ function btnclk(i) {
     case 1:
     case 2:
     case 3:
-      textdisp(i);
-      //checkb(i); not required as its function is performed during = enter
-      break;
-    case ".":
-      if (checkdot(i)) {
-        textdisp(i);
-      }
+    case 0:
+      textdisp(v);
+      //checkb(v); not required as its function is performed during = enter
       break;
 
-    case 0:
-      // if (s == '/') {
-      //   alert("Invalid Operation !\nCannot divide by 0 ");
-      // }
-      // else {
-      //   textdisp(i);
-      // }               // not required as this functionality is performed during = enter
-      textdisp(i);
+    case ".":
+      if (checkdot(v)) {
+        textdisp(v);
+      }
       break;
 
     case "+":
     case "/":
     case "-":
     case "*":
-      if (checko(i)) {
-        insarr1(i);
-        textdisp(i);
+      if (checko(v)) {
+        insarr1(v);
+        textdisp(v);
       }
       break;
 
     case "=":
-      if (checke(i)) {
+      if (checke(v)) {
         insarr2();  //inserts 2nd operand to array
         dispresult(); // displays final result
       }
@@ -112,39 +104,79 @@ function btnclk(i) {
 function del() {
   txt.innerHTML = "";
   txt.style.color = 'blanchedalmond';
-  n[0] = ""; n[1] = ""; s = ""; str = ""; str3=""; //required.clears all global arrays
+  n[0] = ""; n[1] = ""; s = ""; str = ""; str3 = ""; //required.clears all global arrays
 }
 
 //function to display entered content on dispscreen 
 //which takes input , converts current innerhtml and input to string
 //appends input to current innerhtml n displays it
-function textdisp(i) {
+function textdisp(v) {
 
   if (txt.style.color == 'rgb(8, 236, 46)') //clears arrays n dispscreen if it has last result displayd .
   { del(); }
-  var num1 = i.toString();
+  var num1 = v.toString();
   var num2 = txt.innerHTML.toString();
   var fnum = num2.concat(num1);
   txt.innerHTML = fnum;
   return;
 
 }
-function checkdot(i) {
-   return true;
+function checkdot(v) {
+
+  if (txt.style.color == 'rgb(8, 236, 46)') //clears arrays n display if it has last result displayd .
+  { del(); }
+
+  if (n[0] == "") //n[0]==empty means 1st entering 1st operand thus check for . in innerhtml if found ,false  
+  {
+    var regx2 = /[.]/;
+    str = txt.innerHTML.toString();
+    if (regx2.test(str)) {
+      alert("Invalid Expression !\nCannot enter more than 1 decimal point in an operand");
+      return false;
+    }
+    return true;
+
+  }
+  //n[0] !empty means entering 2nd operand thus search for operand in innerhtml and once found
+  //trace str frm next to last index for . if found return false
+  else if (
+    !(n[0] == "")   
+  ) {             
+    var regx2 = /[.]/;
+    var str2 = [];
+    str = txt.innerHTML.toString();
+    str3 = str2.toString();
+
+    //serches for operator in str , when found , collects string frm next index till last index
+    //checks for .  in this new string if yes returns false.
+    for (var i = 0; i < str.length; i++) {
+      if (regx1.test(str[i])) {
+        while (i < str.length - 1) {
+          str3 = str3.concat(str[++i]);
+        }
+        if (regx2.test(str3)) {
+          alert("Invalid Expression !\nCannot enter more than 1 decimal point in an operand");
+          return false;
+        }
+        else return true;
+      }
+    }
+  }
+  else return true
 
 }
 //function to check conditions before entering operator to innerhtml n array
 //Returns false if innerhtml  already  contains operator or operator entered at last or
 //operator is entered at 1st ,else return true
-function checko(i) {
+function checko(v) {
 
   str = txt.innerHTML.toString();
- 
+
 
   if (txt.style.color == 'rgb(8, 236, 46)') //clears arrays n display if it has last result displayd .
   { del(); }
   if (str.charAt(0) == "") {
-    alert("Invalid Expresssion !  \nCannot enter " + i + " at start ");
+    alert("Invalid Expresssion !  \nCannot enter " + v + " at start ");
     return false;
   }
   if (regx1.test(str)) {
@@ -156,7 +188,7 @@ function checko(i) {
 
 //function to check conditions before entering equals operator
 //Returns false if last entered value is an operator or . and if /by0 error is found else return true.
-function checke(i) {
+function checke(v) {
   var regx2 = /[/]/, num;
   var str2 = [];
   str = txt.innerHTML.toString();
@@ -194,15 +226,15 @@ function checke(i) {
 }
 
 //function to insert 1st operand to array and operator to s
-function insarr1(i) {
+function insarr1(v) {
 
   n[0] = parseFloat(txt.innerHTML).toFixed(4);
-  s = i;
+  s = v;
   return;
 }
 
 ////////////////////////////////////////////////////////////////////
-// function checkb(i) {
+// function checkb(v) {
 //   var txt = document.querySelector("#text").innerHTML;
 //   str = txt.toString();
 //   last = str.charAt(str.length - 1);
@@ -214,7 +246,7 @@ function insarr1(i) {
 //     last == "=" ||
 //     last == "."
 //   ) {
-//     n[1] = i;
+//     n[1] = v;
 //     return;
 //   } else return;
 // }
@@ -241,20 +273,20 @@ function insarr2() {
 
 //function to output final result depending on operator
 function dispresult() {
-  var n1 = parseFloat(n[0]), n2=parseFloat(n[1]);
+  var n1 = parseFloat(n[0]), n2 = parseFloat(n[1]);
   txt.style.color = 'rgb(8, 236, 46)';
   switch (s) {
     case '+':
-      txt.innerHTML = n[0] + '+' + n[1] + '=' + (n1+n2).toFixed(4) ;
+      txt.innerHTML = n[0] + '+' + n[1] + '=' + (n1 + n2).toFixed(4);
       break;
     case '-':
-      txt.innerHTML = n[0] + '-' + n[1] + '=' + (n1-n2).toFixed(4);
+      txt.innerHTML = n[0] + '-' + n[1] + '=' + (n1 - n2).toFixed(4);
       break;
     case '/':
-      txt.innerHTML = n[0] + '/' + n[1] + '=' + (n1/n2).toFixed(4);
+      txt.innerHTML = n[0] + '/' + n[1] + '=' + (n1 / n2).toFixed(4);
       break;
     case '*':
-      txt.innerHTML = n[0] + '*' + n[1] + '=' + (n1*n2).toFixed(4);
+      txt.innerHTML = n[0] + '*' + n[1] + '=' + (n1 * n2).toFixed(4);
       break;
   }
 }
