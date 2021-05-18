@@ -241,24 +241,20 @@ function insarr2() {
 
 //function to output final result depending on operator
 function dispresult() {
-  var result;
+  var n1 = parseFloat(n[0]), n2=parseFloat(n[1]);
   txt.style.color = 'rgb(8, 236, 46)';
   switch (s) {
     case '+':
-      result = n[0] + n[1];
-      txt.innerHTML = n[0] + "+" + n[1] + "=" + result.toFixed(4);
+      txt.innerHTML = n[0] + '+' + n[1] + '=' + (n1+n2).toFixed(4) ;
       break;
     case '-':
-      result = n[0] - n[1];
-      txt.innerHTML = n[0] + "-" + n[1] + "=" + result.toFixed(4);
+      txt.innerHTML = n[0] + '-' + n[1] + '=' + (n1-n2).toFixed(4);
       break;
     case '/':
-      result = n[0] / n[1];
-      txt.innerHTML = n[0] + "/" + n[1] + "=" + result.toFixed(4);
+      txt.innerHTML = n[0] + '/' + n[1] + '=' + (n1/n2).toFixed(4);
       break;
     case '*':
-      result = n[0] * n[1];
-      txt.innerHTML = n[0] + "*" + n[1] + "=" + result.toFixed(4);
+      txt.innerHTML = n[0] + '*' + n[1] + '=' + (n1*n2).toFixed(4);
       break;
   }
 }
