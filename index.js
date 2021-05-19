@@ -121,11 +121,15 @@ function textdisp(v) {
   return;
 
 }
+
 function checkdot(v) {
 
   if (txt.style.color == 'rgb(8, 236, 46)') //clears arrays n display if it has last result displayd .
   { del(); }
-
+  if (txt.innerHTML == "") {
+    alert("Invalid Expression !\nCannot enter . at start");
+    return false;
+  }
   if (n[0] == "") //n[0]==empty means 1st entering 1st operand thus check for . in innerhtml if found ,false  
   {
     var regx2 = /[.]/;
@@ -135,13 +139,12 @@ function checkdot(v) {
       return false;
     }
     return true;
-
   }
   //n[0] !empty means entering 2nd operand thus search for operand in innerhtml and once found
   //trace str frm next to last index for . if found return false
   else if (
-    !(n[0] == "")   
-  ) {             
+    !(n[0] == "")
+  ) {
     var regx2 = /[.]/;
     var str2 = [];
     str = txt.innerHTML.toString();
@@ -171,8 +174,6 @@ function checkdot(v) {
 function checko(v) {
 
   str = txt.innerHTML.toString();
-
-
   if (txt.style.color == 'rgb(8, 236, 46)') //clears arrays n display if it has last result displayd .
   { del(); }
   if (str.charAt(0) == "") {
@@ -220,14 +221,11 @@ function checke(v) {
     alert("Invalid Expresssion !  \nCannot enter " + s + " at end");
     return false;
   }
-
   else return true;
-
 }
 
 //function to insert 1st operand to array and operator to s
 function insarr1(v) {
-
   n[0] = parseFloat(txt.innerHTML).toFixed(4);
   s = v;
   return;
