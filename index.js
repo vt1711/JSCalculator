@@ -1,66 +1,65 @@
 var n = ["", ""], s, str, last, regx1 = /[-|/|+|*]/;
 
 //for manupulating calc display
-var txt = document.querySelector("#text");
+var txt = document.querySelector("#dispscreen");
 
 //cancel button functionality
 document.getElementById("cancelbtn").addEventListener("click", del);
 
-// adding event listeners to calc buttons
-var bts = document.getElementsByTagName("button");
-bts[0].addEventListener("click", function () {
-  btnclk(7);
-});
-bts[1].addEventListener("click", function () {
-  btnclk(8);
-});
-bts[2].addEventListener("click", function () {
-  btnclk(9);
-});
-bts[3].addEventListener("click", function () {
-  btnclk("/");
-});
-bts[4].addEventListener("click", function () {
-  btnclk(4);
-});
-bts[5].addEventListener("click", function () {
-  btnclk(5);
-});
-bts[6].addEventListener("click", function () {
-  btnclk(6);
-});
-bts[7].addEventListener("click", function () {
-  btnclk("*");
-});
-bts[8].addEventListener("click", function () {
+// adding event listeners to calc buttons [sction1]
+document.getElementById("n1").addEventListener("click", function () {
   btnclk(1);
 });
-bts[9].addEventListener("click", function () {
+document.getElementById("n2").addEventListener("click", function () {
   btnclk(2);
 });
-bts[10].addEventListener("click", function () {
+document.getElementById("n3").addEventListener("click", function () {
   btnclk(3);
 });
-bts[11].addEventListener("click", function () {
-  btnclk("-");
+document.getElementById("n4").addEventListener("click", function () {
+  btnclk(4);
 });
-bts[12].addEventListener("click", function () {
+document.getElementById("n5").addEventListener("click", function () {
+  btnclk(5);
+});
+document.getElementById("n6").addEventListener("click", function () {
+  btnclk(6);
+});
+document.getElementById("n7").addEventListener("click", function () {
+  btnclk(7);
+});
+document.getElementById("n8").addEventListener("click", function () {
+  btnclk(8);
+});
+document.getElementById("n9").addEventListener("click", function () {
+  btnclk(9);
+});
+document.getElementById("n0").addEventListener("click", function () {
   btnclk(0);
 });
-bts[13].addEventListener("click", function () {
-  btnclk(".");
+document.getElementById("dot").addEventListener("click", function () {
+  btnclk('.');
 });
-bts[14].addEventListener("click", function () {
-  btnclk("=");
+document.getElementById("add").addEventListener("click", function () {
+  btnclk('+');
 });
-bts[15].addEventListener("click", function () {
-  btnclk("+");
+document.getElementById("sub").addEventListener("click", function () {
+  btnclk('-');
 });
+document.getElementById("mult").addEventListener("click", function () {
+  btnclk('*');
+});
+document.getElementById("divide").addEventListener("click", function () {
+  btnclk('/');
+});
+document.getElementById("eqlbtn").addEventListener("click", function () {
+  btnclk('=');
+});
+
 
 //function for calc button clicks
 function btnclk(v) {
   switch (v) {
-
     case 7:
     case 8:
     case 9:
@@ -102,22 +101,22 @@ function btnclk(v) {
 
 //function to reset calc display
 function del() {
-  txt.innerHTML = "";
+  txt.value = "";
   txt.style.color = 'blanchedalmond';
   n[0] = ""; n[1] = ""; s = ""; str = ""; str3 = ""; //required.clears all global arrays
 }
 
 //function to display entered content on dispscreen 
-//which takes input , converts current innerhtml and input to string
-//appends input to current innerhtml n displays it
+//which takes input , converts current value and input to string
+//appends input to current value n displays it
 function textdisp(v) {
 
   if (txt.style.color == 'rgb(8, 236, 46)') //clears arrays n dispscreen if it has last result displayd .
   { del(); }
   var num1 = v.toString();
-  var num2 = txt.innerHTML.toString();
+  var num2 = txt.value.toString();
   var fnum = num2.concat(num1);
-  txt.innerHTML = fnum;
+  txt.value = fnum;
   return;
 
 }
@@ -126,31 +125,31 @@ function checkdot(v) {
 
   if (txt.style.color == 'rgb(8, 236, 46)') //clears arrays n display if it has last result displayd .
   { del(); }
-  if (txt.innerHTML == "") {
+  if (txt.value == "") {
     alert("Invalid Expression !\nCannot enter . at start");
     return false;
   }
   if (n[0] == "") //n[0]==empty means 1st entering 1st operand thus check for . in innerhtml if found ,false  
   {
     var regx2 = /[.]/;
-    str = txt.innerHTML.toString();
+    str = txt.value.toString();
     if (regx2.test(str)) {
       alert("Invalid Expression !\nCannot enter more than 1 decimal point in an operand");
       return false;
     }
     return true;
   }
-  //n[0] !empty means entering 2nd operand thus search for operand in innerhtml and once found
+  //n[0] !empty means entering 2nd operand thus search for operand in value and once found
   //trace str frm next to last index for . if found return false
   else if (
     !(n[0] == "")
   ) {
     var regx2 = /[.]/;
     var str2 = [];
-    str = txt.innerHTML.toString();
+    str = txt.value.toString();
     str3 = str2.toString();
 
-    //serches for operator in str , when found , collects string frm next index till last index
+    //searches for operator in str , when found , collects string frm next index till last index
     //checks for .  in this new string if yes returns false.
     for (var i = 0; i < str.length; i++) {
       if (regx1.test(str[i])) {
@@ -168,12 +167,12 @@ function checkdot(v) {
   else return true
 
 }
-//function to check conditions before entering operator to innerhtml n array
-//Returns false if innerhtml  already  contains operator or operator entered at last or
+//function to check conditions before entering operator to value n array
+//Returns false if value  already  contains operator or operator entered at last or
 //operator is entered at 1st ,else return true
 function checko(v) {
 
-  str = txt.innerHTML.toString();
+  str = txt.value.toString();
   if (txt.style.color == 'rgb(8, 236, 46)') //clears arrays n display if it has last result displayd .
   { del(); }
   if (str.charAt(0) == "") {
@@ -192,7 +191,7 @@ function checko(v) {
 function checke(v) {
   var regx2 = /[/]/, num;
   var str2 = [];
-  str = txt.innerHTML.toString();
+  str = txt.value.toString();
   str3 = str2.toString();
   last = str.charAt(str.length - 1);
 
@@ -226,29 +225,11 @@ function checke(v) {
 
 //function to insert 1st operand to array and operator to s
 function insarr1(v) {
-  n[0] = parseFloat(txt.innerHTML).toFixed(4);
+  n[0] = parseFloat(txt.value).toFixed(4);
   s = v;
   return;
 }
 
-////////////////////////////////////////////////////////////////////
-// function checkb(v) {
-//   var txt = document.querySelector("#text").innerHTML;
-//   str = txt.toString();
-//   last = str.charAt(str.length - 1);
-//   if (
-//     last == "+" ||
-//     last == "-" ||
-//     last == "/" ||
-//     last == "*" ||
-//     last == "=" ||
-//     last == "."
-//   ) {
-//     n[1] = v;
-//     return;
-//   } else return;
-// }
-//////////////////////////////////////////////////////////////////////////
 
 //function to insert 2nd operand to array on preesing =
 //This find index at which operator occurs and 
@@ -256,7 +237,7 @@ function insarr1(v) {
 //and then stores this string as an int in array n. 
 function insarr2() {
   var str2 = [];
-  str = txt.innerHTML.toString();
+  str = txt.value.toString();
   str3 = str2.toString();
   for (var i = 0; i < str.length; i++) {
     if (regx1.test(str[i])) {
@@ -275,19 +256,97 @@ function dispresult() {
   txt.style.color = 'rgb(8, 236, 46)';
   switch (s) {
     case '+':
-      txt.innerHTML = n[0] + '+' + n[1] + '=' + (n1 + n2).toFixed(4);
+      txt.value = n[0] + '+' + n[1] + '=' + (n1 + n2).toFixed(4);
       break;
     case '-':
-      txt.innerHTML = n[0] + '-' + n[1] + '=' + (n1 - n2).toFixed(4);
+      txt.value = n[0] + '-' + n[1] + '=' + (n1 - n2).toFixed(4);
       break;
     case '/':
-      txt.innerHTML = n[0] + '/' + n[1] + '=' + (n1 / n2).toFixed(4);
+      txt.value = n[0] + '/' + n[1] + '=' + (n1 / n2).toFixed(4);
       break;
     case '*':
-      txt.innerHTML = n[0] + '*' + n[1] + '=' + (n1 * n2).toFixed(4);
+      txt.value = n[0] + '*' + n[1] + '=' + (n1 * n2).toFixed(4);
       break;
   }
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////
+/////// Deleted or replaced code sections  //////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
 ///ignore ..test command////
 // document.getElementById("cancelbtn").style.backgroundColor='red';
+
+//Below code was used earlier but replaced with [section1] code as it ws 
+//interchanging button funcionalities if order of buttons changed
+///////////////////////////////////////////////////////////////////////
+// var bts = document.getElementsByTagName("button");
+// bts[0].addEventListener("click", function () {
+//   btnclk(7);
+// });
+// bts[1].addEventListener("click", function () {
+//   btnclk(8);
+// });
+// bts[2].addEventListener("click", function () {
+//   btnclk(9);
+// });
+// bts[3].addEventListener("click", function () {
+//   btnclk("/");
+// });
+// bts[4].addEventListener("click", function () {
+//   btnclk(4);
+// });
+// bts[5].addEventListener("click", function () {
+//   btnclk(5);
+// });
+// bts[6].addEventListener("click", function () {
+//   btnclk(6);
+// });
+// bts[7].addEventListener("click", function () {
+//   btnclk("*");
+// });
+// bts[8].addEventListener("click", function () {
+//   btnclk(1);
+// });
+// bts[9].addEventListener("click", function () {
+//   btnclk(2);
+// });
+// bts[10].addEventListener("click", function () {
+//   btnclk(3);
+// });
+// bts[11].addEventListener("click", function () {
+//   btnclk("-");
+// });
+// bts[12].addEventListener("click", function () {
+//   btnclk(0);
+// });
+// bts[13].addEventListener("click", function () {
+//   btnclk(".");
+// });
+// bts[14].addEventListener("click", function () {
+//   btnclk("=");
+// });
+// bts[15].addEventListener("click", function () {
+//   btnclk("+");
+// });
+////////////////////////////////////////////////////////////////////////////////
+
+//Below code deleted as its function performed during = enter
+////////////////////////////////////////////////////////////////////////////////
+// function checkb(v) {
+//   var txt = document.querySelector("#text").value;
+//   str = txt.toString();
+//   last = str.charAt(str.length - 1);
+//   if (
+//     last == "+" ||
+//     last == "-" ||
+//     last == "/" ||
+//     last == "*" ||
+//     last == "=" ||
+//     last == "."
+//   ) {
+//     n[1] = v;
+//     return;
+//   } else return;
+// }
+/////////////////////////////////////////////////////////////////////////////////

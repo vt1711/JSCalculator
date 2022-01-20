@@ -11,16 +11,31 @@
   <body>
     <!-- Calc outer box start -->
     <div id="obox">
-      <div id="dispscreen"><div id="cancelbtn">X</div> <div id="text"></div> </div>
+      <!-- <div id="dispscreen"> <div id="text"></div> </div> -->
+      <input type="text" id="dispscreen">
       <div class="btndiv">
-        <button class="btns">7</button><button class="btns">8</button>
-        <button class="btns">9</button> <button class="btns ssign">/</button> <br>
-        <button class="btns">4</button><button class="btns">5</button>
-        <button class="btns">6</button> <button class="btns ssign">*</button>  <br>
-        <button class="btns">1</button><button class="btns">2</button>
-        <button class="btns">3</button> <button class="btns ssign">-</button>  <br> 
-        <button class="btns">0</button><button class="btns">.</button>
-        <button class="btns" id="eqlbtn">=</button> <button class="btns ssign">+</button> 
+        <div class="numdiv">
+          <button class="btns" id="n7">7</button>
+          <button class="btns" id="n8">8</button>
+          <button class="btns" id="n9">9</button><br>
+          <button class="btns" id="n4">4</button>
+          <button class="btns" id="n5">5</button>
+          <button class="btns" id="n6">6</button><br> 
+          <button class="btns" id="n1">1</button>
+          <button class="btns" id="n2">2</button>
+          <button class="btns" id="n3">3</button><br> 
+          <button class="btns" id="dot">.</button>
+          <button class="btns" id="n0">0</button>
+          <button class="btns" id="eqlbtn">=</button> 
+          
+          
+        </div>
+        <div class="sdiv"></div>
+          <button class="btns ssign" id="divide">/</button><br>
+          <button class="btns ssign" id="mult">*</button><br>
+          <button class="btns ssign" id="sub">-</button><br>
+          <button class="btns ssign" id="add">+</button><br> 
+          <button class="btns ssign" id="cancelbtn" >C</button>     
       </div>
     </div>
      <!-- Calc outer box end -->
