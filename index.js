@@ -350,3 +350,17 @@ function dispresult() {
 //   } else return;
 // }
 /////////////////////////////////////////////////////////////////////////////////
+
+// Code for detecting which key is pressed
+//////////////////////////////////////////////////////////////////////////////
+// function keypressidentify(){
+//   alert("working");
+//   window.addEventListener( "keydown", function(event) 
+//   {   MyFunction(event.key);          }   ) 
+    
+//   function MyFunction (the_Key) 
+//   { console.log("Key pressed is: "+the_Key);   }
+// }
+
+// also add attribute => onload="keypressidentify()" to call this function when page loads
+////////////////////////////////////////////////////////////////////////////////
