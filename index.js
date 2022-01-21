@@ -202,8 +202,8 @@ function checke(v) {
       while (i < str.length - 1) {
         str3 = str3.concat(str[++i]);
       }
-      num = parseFloat(str3).toFixed(4);
-      if (num == 0.0000) {
+      num = Number(str3);
+      if (num == 0) {
         alert("Invalid Expression !\nCannot divide by 0");
         return false;
       }
@@ -225,7 +225,7 @@ function checke(v) {
 
 //function to insert 1st operand to array and operator to s
 function insarr1(v) {
-  n[0] = parseFloat(txt.value).toFixed(4);
+  n[0] = Number(txt.value);
   s = v;
   return;
 }
@@ -244,7 +244,7 @@ function insarr2() {
       while (i < str.length - 1) {
         str3 = str3.concat(str[++i]);
       }
-      n[1] = parseFloat(str3).toFixed(4);
+      n[1] = Number(str3);
       return;
     }
   }
@@ -252,20 +252,20 @@ function insarr2() {
 
 //function to output final result depending on operator
 function dispresult() {
-  var n1 = parseFloat(n[0]), n2 = parseFloat(n[1]);
+  var n1 = Number(n[0]), n2 = Number(n[1]);
   txt.style.color = 'rgb(8, 236, 46)';
   switch (s) {
     case '+':
-      txt.value = n[0] + '+' + n[1] + '=' + (n1 + n2).toFixed(4);
+      txt.value = n[0] + '+' + n[1] + '=' + (n1 + n2);
       break;
     case '-':
-      txt.value = n[0] + '-' + n[1] + '=' + (n1 - n2).toFixed(4);
+      txt.value = n[0] + '-' + n[1] + '=' + (n1 - n2);
       break;
     case '/':
-      txt.value = n[0] + '/' + n[1] + '=' + (n1 / n2).toFixed(4);
+      txt.value = n[0] + '/' + n[1] + '=' + (n1 / n2);
       break;
     case '*':
-      txt.value = n[0] + '*' + n[1] + '=' + (n1 * n2).toFixed(4);
+      txt.value = n[0] + '*' + n[1] + '=' + (n1 * n2);
       break;
   }
 }
