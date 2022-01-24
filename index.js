@@ -101,22 +101,22 @@ function btnclk(v) {
 
 //function to reset calc display
 function del() {
-  txt.value = "";
+  txt.innerHTML = "";
   txt.style.color = 'blanchedalmond';
   n[0] = ""; n[1] = ""; s = ""; str = ""; str3 = ""; //required.clears all global arrays
 }
 
 //function to display entered content on dispscreen 
-//which takes input , converts current value and input to string
-//appends input to current value n displays it
+//which takes input , converts current innerHTML and input to string
+//appends input to current innerHTML n displays it
 function textdisp(v) {
 
   if (txt.style.color == 'rgb(8, 236, 46)') //clears arrays n dispscreen if it has last result displayd .
   { del(); }
   var num1 = v.toString();
-  var num2 = txt.value.toString();
+  var num2 = txt.innerHTML.toString();
   var fnum = num2.concat(num1);
-  txt.value = fnum;
+  txt.innerHTML = fnum;
   return;
 
 }
@@ -125,28 +125,28 @@ function checkdot(v) {
 
   if (txt.style.color == 'rgb(8, 236, 46)') //clears arrays n display if it has last result displayd .
   { del(); }
-  if (txt.value == "") {
+  if (txt.innerHTML == "") {
     alert("Invalid Expression !\nCannot enter . at start");
     return false;
   }
   if (n[0] == "") //n[0]==empty means 1st entering 1st operand thus check for . in innerhtml if found ,false  
   {
     var regx2 = /[.]/;
-    str = txt.value.toString();
+    str = txt.innerHTML.toString();
     if (regx2.test(str)) {
       alert("Invalid Expression !\nCannot enter more than 1 decimal point in an operand");
       return false;
     }
     return true;
   }
-  //n[0] !empty means entering 2nd operand thus search for operand in value and once found
+  //n[0] !empty means entering 2nd operand thus search for operand in innerHTML and once found
   //trace str frm next to last index for . if found return false
   else if (
     !(n[0] == "")
   ) {
     var regx2 = /[.]/;
     var str2 = [];
-    str = txt.value.toString();
+    str = txt.innerHTML.toString();
     str3 = str2.toString();
 
     //searches for operator in str , when found , collects string frm next index till last index
@@ -167,12 +167,12 @@ function checkdot(v) {
   else return true
 
 }
-//function to check conditions before entering operator to value n array
-//Returns false if value  already  contains operator or operator entered at last or
+//function to check conditions before entering operator to innerHTML n array
+//Returns false if innerHTML  already  contains operator or operator entered at last or
 //operator is entered at 1st ,else return true
 function checko(v) {
 
-  str = txt.value.toString();
+  str = txt.innerHTML.toString();
   if (txt.style.color == 'rgb(8, 236, 46)') //clears arrays n display if it has last result displayd .
   { del(); }
   if (str.charAt(0) == "") {
@@ -187,11 +187,11 @@ function checko(v) {
 }
 
 //function to check conditions before entering equals operator
-//Returns false if last entered value is an operator or . and if /by0 error is found else return true.
+//Returns false if last entered innerHTML is an operator or . and if /by0 error is found else return true.
 function checke(v) {
   var regx2 = /[/]/, num;
   var str2 = [];
-  str = txt.value.toString();
+  str = txt.innerHTML.toString();
   str3 = str2.toString();
   last = str.charAt(str.length - 1);
 
@@ -225,7 +225,7 @@ function checke(v) {
 
 //function to insert 1st operand to array and operator to s
 function insarr1(v) {
-  n[0] = Number(txt.value);
+  n[0] = Number(txt.innerHTML);
   s = v;
   return;
 }
@@ -237,7 +237,7 @@ function insarr1(v) {
 //and then stores this string as an int in array n. 
 function insarr2() {
   var str2 = [];
-  str = txt.value.toString();
+  str = txt.innerHTML.toString();
   str3 = str2.toString();
   for (var i = 0; i < str.length; i++) {
     if (regx1.test(str[i])) {
@@ -256,16 +256,16 @@ function dispresult() {
   txt.style.color = 'rgb(8, 236, 46)';
   switch (s) {
     case '+':
-      txt.value = n[0] + '+' + n[1] + '=' + (n1 + n2);
+      txt.innerHTML = n[0] + '+' + n[1] + '=' + (n1 + n2);
       break;
     case '-':
-      txt.value = n[0] + '-' + n[1] + '=' + (n1 - n2);
+      txt.innerHTML = n[0] + '-' + n[1] + '=' + (n1 - n2);
       break;
     case '/':
-      txt.value = n[0] + '/' + n[1] + '=' + (n1 / n2);
+      txt.innerHTML = n[0] + '/' + n[1] + '=' + (n1 / n2);
       break;
     case '*':
-      txt.value = n[0] + '*' + n[1] + '=' + (n1 * n2);
+      txt.innerHTML = n[0] + '*' + n[1] + '=' + (n1 * n2);
       break;
   }
 }

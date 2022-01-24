@@ -28,6 +28,7 @@ body
     font: 3rem bold;
     text-align: end;
     color: blanchedalmond;
+    overflow: auto;
 }
 .btndiv
 {     
@@ -89,28 +90,31 @@ body
 
 @media only screen and (max-width: 600px) {
 body
-{   height: auto;
-    background-color: black;
+{
+    overflow: hidden;
 }
 #obox
 { 
   width: auto;
-  height: auto;
-  margin: 4rem 0 0 0;
+  height: 44rem;
+  margin: 0;
   border: none;
   border-radius: 0;
    
 }
 #dispscreen
 {   
-    width: 22.5rem; 
-    margin: 2rem 0rem 0rem 1rem;
+    border-radius: 0.5rem;
+    width: 20.5rem; 
+    margin: 3rem 0rem 0rem 1rem;
     font: 3rem bold;
+    padding: 0 0.7rem 0 0.7rem;
+    box-shadow: 0 0 10px rgba(6, 9, 12, 0.959);
 }
 .btndiv
 {     
     width: 25rem;
-    margin: 2rem 0rem 0rem 0.1rem;
+    margin: 3.3rem 0rem 0rem 0.1rem;
 }
 .numdiv{
     
@@ -128,29 +132,20 @@ body
     margin: 0rem 0.1rem 2rem 1rem;
     border-radius: 1rem;
     font: 1.85rem bold;
+    box-shadow: 0 0 10px rgba(1, 10, 17, 0.959);
 }
 .btns:hover
 {
     box-shadow: none;
 }
-.btns:active
-{
-    background-color:  rgb(22, 20, 21);
-}
+
 .ssign
  {  height: 5rem;
-    
+    box-shadow: 0 0 10px rgba(1, 10, 17, 0.959);
     margin: 0.2rem 0 1rem 0rem;
 }
-.ssign:active
-{
-    background-color: rgb(9, 84, 94);
+
 }
-#cancelbtn:active
-{
-    background-color: rgb(146, 12, 34);
-}
-  }
 
 
 /* removed properties of old cancel button in dispscreen 
